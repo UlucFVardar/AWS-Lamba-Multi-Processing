@@ -26,7 +26,9 @@
 
 <details open>
 <summary open>API Documentation </summary>
- 
+
+###### AWS API GateWay is the key of this architecture. every subLayer Lambda will be invoked with API GateWay. 3 Layers need this API connection. We'll generate APIs for these 3 Layer Lambda Scripts and when time comes up using a simple http request a Lambda function that we want will be invoked.
+
 </details>
 
 
