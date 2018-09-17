@@ -14,5 +14,10 @@ Let's start with the 1st layer.
 ---
 ###### Lambda functions in layer 2 will be run by different lambda parameters from a top layer. This lambda will be tasked to parse the information within the league url and find names and URLs of all teams in that league. Team names will be inserted into DB. Than for every team_url a subLayer Lambda will be invoked with the paramaters of team_url,team_id
 ---
+###### Lambda functions in layer 3 work by taking parameters of the team url and team_id. The task of these functions is to find URLs for all players playing on that team. After insering Player name to DB, player_id and player_url are placed in a lower layer.
+---
+###### Lambda functions in layer 4 work by taking parameters of the player_url and player_id. The task of these lambdas are to update players info from the DB.
+
+
 
 
