@@ -9,6 +9,7 @@
 ### As you can see, there is a lambda architecture with 4 Layers.
 <details open>
 <summary open>Layer Documentation </summary>
+ 
 ---
 ###### Lambda in layer 1 will be triggered with AWS CloudWach and will parse the page where all leagues are listed on the site and find the names of the leagues and the URL's with the information of those leagues. Names of leaguw will place on the AWS RDS Database and with using the AWS API GateWay to trigger. for every league a sublayer lambda will invoked with the parameter of *league_id and league_url.*
 --
@@ -18,6 +19,7 @@
 --
 ###### Lambda functions in layer 4 work by taking parameters of the player_url and player_id. The task of these lambdas are to update players info from the DB.
 ---
+
 </details>
 
 # How to invoke A Lambda From another Lambda 
