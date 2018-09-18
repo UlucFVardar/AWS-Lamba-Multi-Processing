@@ -64,7 +64,6 @@ def main(event, context):
     """
     name, href = leagues[0]
     url = 'https://61v20ikv78.execute-api.eu-central-1.amazonaws.com/invoke/layer2' + '?league_href=' + href
-    time.sleep(0.1)
     requests.get(url)
 
     # https://61v20ikv78.execute-api.eu-central-1.amazonaws.com/invoke/layer2?league_href=/super-lig/startseite/wettbewerb/TR1
