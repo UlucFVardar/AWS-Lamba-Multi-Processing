@@ -13,7 +13,6 @@ def start(URL, player_href, club_id):
     player_href -> '/fernando-muslera/profil/spieler/58088' 
         - player_href is the link which has all player info
     """
-
     r = send_request(URL + player_href)
     print(r.text)
     

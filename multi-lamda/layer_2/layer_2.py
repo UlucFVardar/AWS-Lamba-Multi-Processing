@@ -14,9 +14,7 @@ def start(URL, league_href):
         - league_href is the link which represent a infos and 
           teams of table of a league. 
     """
-
     links_of_clubs = []
-
     r = send_request(URL + league_href)
     print(r.text)
 
@@ -124,13 +122,18 @@ def send_request(url):
         return send_request(url)
 
 def main(event, context):
+    time.sleep(0.5)
     # start returns  league_id in the database and links of clubs of the Current LEAGUE
     clubs ,l_id = start('https://www.transfermarkt.com.tr', '/super-lig/startseite/wettbewerb/TR1') #event['league_href'])
     
     for club in clubs:
         name, href = club
         url = 'https://kaj7zn30q0.execute-api.eu-central-1.amazonaws.com/invoke/layer3' + '?club_href=' + href + '&league_id=' + str(l_id)
+<<<<<<< HEAD
         time.sleep(1)
+=======
+        time.sleep(0.1)
+>>>>>>> master
         requests.get(url)
         # https://kaj7zn30q0.execute-api.eu-central-1.amazonaws.com/invoke/layer3?club_href=/galatasaray-istanbul/startseite/verein/141/saison_id/2018&league_id=2
 

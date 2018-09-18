@@ -115,13 +115,17 @@ def send_request(url):
 
 def main(event, context):
     # start returns  club_id in the database and links of Players of the Current CLUB
-
+    time.sleep(0.5)
     players ,c_id = start('https://www.transfermarkt.com.tr', event['club_href'], int(event['league_id']) ) # '/galatasaray-istanbul/startseite/verein/141/saison_id/2018',2)
 
     for player in players:
         name, href = player
         url = 'https://jrhwzgwx7c.execute-api.eu-central-1.amazonaws.com/invoke/layer4' + '?player_href=' + href + '&club_id=' + str(c_id)
+<<<<<<< HEAD
         time.sleep(1)
+=======
+        time.sleep(0.1)
+>>>>>>> master
         requests.get(url)
 
     return players, c_id
