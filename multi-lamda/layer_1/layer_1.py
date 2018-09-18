@@ -17,7 +17,7 @@ def start(URL, country_href):
     links_of_leagues = []
 
     r = send_request(URL + country_href)
-    #print(r.text)
+    print(r.text)
 
     # Soup for leagues table to get LINKS of them
     soup = BeautifulSoup(r.text, 'html.parser')
