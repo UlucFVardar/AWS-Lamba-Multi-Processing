@@ -124,6 +124,10 @@ def send_request(url):
         print ('ERROR:(SEND REQUEST METHOD)')
         return send_request(url)
 
+def main(event, context):
+    # start returns  league_id in the database and links of clubs of the Current LEAGUE
+    l ,l_id= start('https://www.transfermarkt.com.tr','/super-lig/startseite/wettbewerb/TR1')
+
 """
 l ,l_id= start('https://www.transfermarkt.com.tr',
     '/super-lig/startseite/wettbewerb/TR1')

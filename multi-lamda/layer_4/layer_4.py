@@ -310,6 +310,10 @@ def date_converter_4_mysql(date):
         return '0000-00-00'
     return date
 
+
+def main(event, context):
+    start('https://www.transfermarkt.com.tr', '/fernando-muslera/profil/spieler/58088', 1)
+
 """
 start('https://www.transfermarkt.com.tr',
     '/fernando-muslera/profil/spieler/58088', 1)

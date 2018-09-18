@@ -114,6 +114,9 @@ def send_request(url):
         print ('ERROR:(SEND REQUEST METHOD)')
         return send_request(url)
 
+def main(event, context):
+    # start returns  club_id in the database and links of Players of the Current CLUB
+    p ,c_id = start('https://www.transfermarkt.com.tr', '/galatasaray-istanbul/startseite/verein/141/saison_id/2018',2)
 
 """
 p ,c_id = start('https://www.transfermarkt.com.tr',

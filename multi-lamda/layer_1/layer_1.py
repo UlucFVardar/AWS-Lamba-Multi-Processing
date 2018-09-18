@@ -56,6 +56,9 @@ def send_request(url):
         print ('ERROR:(SEND REQUEST METHOD)')
         return send_request(url)
 
+def main(event, context):
+    l = start('https://www.transfermarkt.com.tr','/wettbewerbe/national/wettbewerbe/174')
+
 """
 l = start('https://www.transfermarkt.com.tr',
 '/wettbewerbe/national/wettbewerbe/174')
