@@ -5,6 +5,7 @@ import requests
 from bs4 import BeautifulSoup  
 from blockAll import BlockAll
 from layer_2_dataBase import DataBase as DB
+from multiprocessing import Process
 
 def start(URL, league_href):
     """
@@ -107,7 +108,6 @@ def get_links_of_clubs(club_column, links_of_clubs):
         club_name = clb.find('a').get_text()
         links_of_clubs.append((club_name, club_href))
 
-
 def send_request(url):
     s = requests.Session()
     s.cookies.set_policy(BlockAll())
@@ -121,15 +121,25 @@ def send_request(url):
         print ('ERROR:(SEND REQUEST METHOD)')
         return send_request(url)
 
+
+
+def invoke_layer_3(url):
+    requests.get(url)
+
 def main(event, context):
     time.sleep(0.1)
     # start returns  league_id in the database and links of clubs of the Current LEAGUE
-    clubs ,l_id = start('https://www.transfermarkt.com.tr', '/super-lig/startseite/wettbewerb/TR1') #event['league_href'])
+    clubs ,l_id = start('https://www.transfermarkt.com.tr', event['league_href']) #'/super-lig/startseite/wettbewerb/TR1') 
     
     for club in clubs:
         name, href = club
         url = 'https://kaj7zn30q0.execute-api.eu-central-1.amazonaws.com/invoke/layer3' + '?club_href=' + href + '&league_id=' + str(l_id)
-        requests.get(url)
-        # https://kaj7zn30q0.execute-api.eu-central-1.amazonaws.com/invoke/layer3?club_href=/galatasaray-istanbul/startseite/verein/141/saison_id/2018&league_id=2
+        
+        # create and run process
+        p = Process(target=invoke_layer_3, args=(url,))
+        p.start()
+        time.sleep(0.3)
+
+        # https://kaj7zn30q0.execute-api.eu-central-1.amazonaws.com/invoke/layer3?club_href=/sivasspor/startseite/verein/2381/saison_id/2018&league_id=2
 
     return clubs, l_id

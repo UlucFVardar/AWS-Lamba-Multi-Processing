@@ -5,6 +5,7 @@ import requests
 from bs4 import BeautifulSoup  
 from blockAll import BlockAll
 from layer_3_dataBase import DataBase as DB
+from multiprocessing import Process
 
 def start(URL, club_href, league_id):
     """
@@ -113,6 +114,9 @@ def send_request(url):
         print ('ERROR:(SEND REQUEST METHOD)')
         return send_request(url)
 
+def invoke_layer_4(url):
+    requests.get(url)
+
 def main(event, context):
     # start returns  club_id in the database and links of Players of the Current CLUB
     time.sleep(0.1)
@@ -121,7 +125,11 @@ def main(event, context):
     for player in players:
         name, href = player
         url = 'https://jrhwzgwx7c.execute-api.eu-central-1.amazonaws.com/invoke/layer4' + '?player_href=' + href + '&club_id=' + str(c_id)
-        requests.get(url)
+
+        # create and run process
+        p = Process(target=invoke_layer_4, args=(url,))
+        p.start()
+        time.sleep(0.3)
 
     return players, c_id
         
