@@ -15,25 +15,26 @@ def start(URL, player_href, club_id):
     """
 
     r = send_request(URL + player_href)
-    #print(r.text)
-
+    print(r.text)
+    
     # Soup for clubs of table to get LINKS of them
     soup_of_player_page = BeautifulSoup(r.text, 'html.parser')
-
+    
     # Set player infos
     player_data_table = soup_of_player_page.find('table', attrs={'class':'auflistung'})
     lst = [text for text in player_data_table.stripped_strings]
-    if 'Geburtsdatum:' in lst:
-        set_player_infos_DE(soup_of_player_page, club_id)
-    else:
-        set_player_infos(soup_of_player_page, club_id)
 
-def set_player_infos(soup_of_player_page, club_id):
-    
+    if 'Geburtsdatum:' in lst:
+        set_player_infos_DE(soup_of_player_page, club_id, lst)
+    else:
+        set_player_infos(soup_of_player_page, club_id, lst)
+
+def set_player_infos(soup_of_player_page, club_id, lst):
+    """
     player_data_table = soup_of_player_page.find('table', attrs={'class':'auflistung'})
     lst = [text for text in player_data_table.stripped_strings]
     #print(lst, '\n')
-
+    """
     full_name = 'unknown'
     bday = 'unknown'
     bplace = 'unknown'
@@ -156,9 +157,12 @@ def set_player_infos(soup_of_player_page, club_id):
 
     insert_player_data_into_dataBase(player_obj, club_id)
 
-def set_player_infos_DE(soup_of_player_page, club_id):
+def set_player_infos_DE(soup_of_player_page, club_id, lst):
+    """
     player_data_table = soup_of_player_page.find('table', attrs={'class':'auflistung'})
     lst = [text for text in player_data_table.stripped_strings]
+    """
+
     full_name = 'unknown'
     bday = 'unknown'
     bplace = 'unknown'
@@ -288,9 +292,8 @@ def send_request(url):
 
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'} 
-    
+    time.sleep(10)
     try:
-        #time.sleep(2)
         return s.get(url, headers=headers)
     except Exception:
         print ('ERROR:(SEND REQUEST METHOD)')
@@ -312,9 +315,5 @@ def date_converter_4_mysql(date):
 
 
 def main(event, context):
-    start('https://www.transfermarkt.com.tr', '/fernando-muslera/profil/spieler/58088', 1)
-
-"""
-start('https://www.transfermarkt.com.tr',
-    '/fernando-muslera/profil/spieler/58088', 1)
-"""
+    start('https://www.transfermarkt.com.tr', event['player_href'], int(event['club_id']) ) # '/fernando-muslera/profil/spieler/58088', 1) 
+    return 'Done!'

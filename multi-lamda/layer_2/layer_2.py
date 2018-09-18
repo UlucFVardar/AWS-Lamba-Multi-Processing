@@ -116,9 +116,8 @@ def send_request(url):
 
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'} 
-    
-    try:
-        #time.sleep(2)
+    time.sleep(10)
+    try:  
         return s.get(url, headers=headers)
     except Exception:
         print ('ERROR:(SEND REQUEST METHOD)')
@@ -126,13 +125,13 @@ def send_request(url):
 
 def main(event, context):
     # start returns  league_id in the database and links of clubs of the Current LEAGUE
-    l ,l_id= start('https://www.transfermarkt.com.tr','/super-lig/startseite/wettbewerb/TR1')
+    clubs ,l_id = start('https://www.transfermarkt.com.tr', '/super-lig/startseite/wettbewerb/TR1') #event['league_href'])
+    
+    for club in clubs:
+        name, href = club
+        url = 'https://kaj7zn30q0.execute-api.eu-central-1.amazonaws.com/invoke/layer3' + '?club_href=' + href + '&league_id=' + str(l_id)
+        time.sleep(5)
+        requests.get(url)
+        # https://kaj7zn30q0.execute-api.eu-central-1.amazonaws.com/invoke/layer3?club_href=/galatasaray-istanbul/startseite/verein/141/saison_id/2018&league_id=2
 
-"""
-l ,l_id= start('https://www.transfermarkt.com.tr',
-    '/super-lig/startseite/wettbewerb/TR1')
-
-print('main l_id:',l_id)
-for i in l:
-    print(i)
-"""
+    return clubs, l_id

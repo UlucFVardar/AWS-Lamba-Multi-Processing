@@ -19,6 +19,7 @@ class DataBase:
             print('[INFO]: LEAGUE INSERT OKAY')
             self.connection.commit()
             print('[INFO]: COMMIT')
+            
             cur.execute("""select league_id from test_leagues where name = '%s' """ % (name))
             league_id = '-1'
             result = cur.fetchall()

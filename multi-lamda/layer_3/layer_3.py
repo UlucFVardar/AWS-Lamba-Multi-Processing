@@ -106,9 +106,9 @@ def send_request(url):
 
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'} 
-    
+    time.sleep(10)
     try:
-        #time.sleep(2)
+        
         return s.get(url, headers=headers)
     except Exception:
         print ('ERROR:(SEND REQUEST METHOD)')
@@ -116,14 +116,12 @@ def send_request(url):
 
 def main(event, context):
     # start returns  club_id in the database and links of Players of the Current CLUB
-    p ,c_id = start('https://www.transfermarkt.com.tr', '/galatasaray-istanbul/startseite/verein/141/saison_id/2018',2)
 
-"""
-p ,c_id = start('https://www.transfermarkt.com.tr',
-    '/galatasaray-istanbul/startseite/verein/141/saison_id/2018',2)
+    players ,c_id = start('https://www.transfermarkt.com.tr', event['club_href'], int(event['league_id']) ) # '/galatasaray-istanbul/startseite/verein/141/saison_id/2018',2)
 
-print('main c_id:',c_id)
-
-for i in p:
-    print(i)
-"""
+    for player in players:
+        name, href = player
+        url = 'https://jrhwzgwx7c.execute-api.eu-central-1.amazonaws.com/invoke/layer4' + '?player_href=' + href + '&club_id=' + str(c_id)
+        time.sleep(5)
+        requests.get(url)
+        
