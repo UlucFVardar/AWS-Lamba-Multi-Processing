@@ -10,10 +10,10 @@ class DataBase:
                 , db = self.choosen_DB,
                 charset='utf8')
 
-    def insert(self, ip,layer,number):
+    def insert(self, ip,layer,number,invoked_time):
 
         with self.connection.cursor() as cur:
-            cur.execute("""insert into innodb.testttt (ip,time,layer,number) values('%s',NOW(),%s,%s)""" % (ip,layer,number))
+            cur.execute("""insert into innodb.testttt (ip,time,layer,number) values('%s',NOW(),%s,%s, '%s')""" % (ip,layer,number,invoked_time))
             print('[INFO]: LEAGUE INSERT OKAY')
             self.connection.commit()
             print('[INFO]: COMMIT')

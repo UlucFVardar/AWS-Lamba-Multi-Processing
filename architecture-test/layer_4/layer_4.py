@@ -18,10 +18,12 @@ def main(event, context):
         ip = json.loads(r.text)['ip']
         layer = event['layer']
         number = event['number']
+        invoked_time = event['invoke_time']
     except:
         ip = 'null'
         layer = event['layer']
         number = event['number']
+        invoked_time = event['invoke_time']
 
     db = DB('innodb')
-    db.insert(ip,layer,number)
+    db.insert(ip,layer,number, invoked_time)
