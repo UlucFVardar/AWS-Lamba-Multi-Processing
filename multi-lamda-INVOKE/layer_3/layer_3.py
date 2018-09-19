@@ -123,7 +123,7 @@ def invoke_layer_4(payload):
 
 
 def main(event, context):
-    time.sleep(1)
+    time.sleep(randint(2,5))
     # start returns  club_id in the database and links of Players of the Current CLUB
     players ,c_id = start('https://www.transfermarkt.com.tr', event['club_href'], int(event['league_id']))
 

@@ -130,7 +130,7 @@ def invoke_layer_3(payload):
 
 
 def main(event, context):
-    time.sleep(1)
+    time.sleep(randint(2,5))
     # start returns  league_id in the database and links of clubs of the Current LEAGUE
     clubs ,l_id = start('https://www.transfermarkt.com.tr', event['league_href']) #'/super-lig/startseite/wettbewerb/TR1') 
     

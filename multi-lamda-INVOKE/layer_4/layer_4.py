@@ -5,6 +5,7 @@ import requests
 from bs4 import BeautifulSoup  
 from blockAll import BlockAll
 from layer_4_dataBase import DataBase as DB
+from random import randint
 
 def start(URL, player_href, club_id):
     """
@@ -312,5 +313,6 @@ def date_converter_4_mysql(date):
 
 
 def main(event, context):
+    time.sleep(randint(2,5))
     start('https://www.transfermarkt.com.tr', event['player_href'], int(event['club_id']) ) # '/fernando-muslera/profil/spieler/58088', 1) 
     return 'Done!'

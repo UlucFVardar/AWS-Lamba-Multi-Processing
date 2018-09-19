@@ -67,6 +67,7 @@ def main(event, context):
         time.sleep(2)
     """
     name, href = leagues[0]
+    
     # INSTEAD OF requests.get(url) make the operation down below
     invokeLam = boto3.client("lambda", region_name = "eu-central-1")
     payload = {"league_href": href}
